@@ -83,7 +83,8 @@ class XP5FlightController:
     def _send_attitude_target(self, roll_angle=0.0, pitch_angle=0.0, yaw_angle=None, 
                               yaw_rate=0.0, use_yaw_rate=False, thrust=0.5):
         if yaw_angle is None:
-            yaw_angle = self.vehicle.attitude.yaw
+            # Convert DroneKit's radian output to degrees
+            yaw_angle = math.degrees(self.vehicle.attitude.yaw)
 
         msg = self.vehicle.message_factory.set_attitude_target_encode(
             0, 1, 1,
